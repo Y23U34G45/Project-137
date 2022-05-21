@@ -5,7 +5,7 @@ function setup(){
 canvas = createCanvas(480, 380);
 canvas.center();
 video = createCapture(VIDEO);
-video.size(300, 290);
+video.size(480, 380);
 video.hide();
 }
 function start(){
@@ -18,12 +18,12 @@ function modelLoaded(){
     Status = true;
 }
 function draw(){
-    image(video,0,0,300,290);
+    image(video,0,0,480,380);
     if(Status!= ""){
-    objectDetector.detect(video, gotResults);
+    objectDetector.detect(video, gotResult);
  for(i = 0; i < objects.length; i++){
     document.getElementById("status").innerHTML = "Status : Objects Detected";
-    document.getElementById("number_of_objects").innerHTML = "Number of objects detected are : "+ objects.length;
+    
 
     fill("#FF0000");
     percent = floor(objects[i].confidence * 100);
@@ -32,9 +32,9 @@ function draw(){
     stroke("#FF0000");
     rect(objects[i].x, objects[i].y, objects[i].width, objects[i].height);
 
-    if(object[i].label == input_text){
+    if(objects[i].label == input_text){
         video.stop();
-        objectDetector.detect(gotResults);
+        objectDetector.detect(gotResult);
         document.getElementById("object_found").innerHTML = input_text+" Found";
         var synth = window.speechSynthesis;
         var utterThis = new SpeechSynthesisUtterance(input_text+"found");
